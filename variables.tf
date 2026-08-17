@@ -17,3 +17,8 @@ variable "storage_account_name" {
   description = "Name of the Azure Storage Account"
   type        = string
 }
+
+variable "container_registry_name" {
+  description = "Name of the Azure Container Registry"
+  type        = string
+}

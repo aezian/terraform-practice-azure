@@ -19,3 +19,13 @@ resource "azurerm_storage_container" "tfstate" {
   storage_account_id    = azurerm_storage_account.main.id
   container_access_type = "private"
 }
+
+resource "azurerm_container_registry" "main" {
+  name                = var.container_registry_name
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  sku                 = "Basic"
+  admin_enabled       = false
+
+  tags = var.tags
+}
