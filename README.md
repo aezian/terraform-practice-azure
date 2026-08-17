@@ -40,3 +40,13 @@ terraform apply
 terraform state list
 terraform output
 terraform destroy
+
+Current Tags
+The Resource Group uses these tags:
+Project = AdventureRace
+Environment = Dev
+Owner = Ehsan
+ManagedBy = Terraform
+
+Learning Goal
+This project is part of my DevOps learning path. It focuses on understanding Infrastructure as Code, Terraform state, Azure provider configuration, variables, outputs, tagging, and safe infrastructure lifecycle management.
