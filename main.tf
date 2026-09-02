@@ -37,10 +37,16 @@ resource "azurerm_kubernetes_cluster" "main" {
   dns_prefix          = var.aks_dns_prefix
 
   default_node_pool {
-    name       = "default"
-    node_count = var.aks_node_count
-    vm_size    = var.aks_vm_size
+  name       = "default"
+  node_count = var.aks_node_count
+  vm_size    = var.aks_vm_size
+
+  upgrade_settings {
+    max_surge                     = "10%"
+    drain_timeout_in_minutes      = 0
+    node_soak_duration_in_minutes = 0
   }
+}
 
   identity {
     type = "SystemAssigned"
