@@ -47,3 +47,23 @@ variable "aks_location" {
   description = "Azure region for the AKS cluster"
   type        = string
 }
+
+variable "vnet_name" {
+  description = "Name of the Azure Virtual Network"
+  type        = string
+}
+
+variable "vnet_address_space" {
+  description = "Address space for the Azure Virtual Network"
+  type        = list(string)
+}
+
+variable "aks_subnet_name" {
+  description = "Name of the AKS subnet"
+  type        = string
+}
+
+variable "aks_subnet_address_prefixes" {
+  description = "Address prefixes for the AKS subnet"
+  type        = list(string)
+}

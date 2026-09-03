@@ -40,6 +40,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   name       = "default"
   node_count = var.aks_node_count
   vm_size    = var.aks_vm_size
+  vnet_subnet_id = azurerm_subnet.aks.id
 
   upgrade_settings {
     max_surge                     = "10%"
@@ -51,6 +52,10 @@ resource "azurerm_kubernetes_cluster" "main" {
   identity {
     type = "SystemAssigned"
   }
+  network_profile {
+  network_plugin = "azure"
+  network_policy = "azure"
+}
 
   tags = var.tags
 }
@@ -59,4 +64,20 @@ resource "azurerm_role_assignment" "aks_acr_pull" {
   scope                = azurerm_container_registry.main.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id
+}
+
+resource "azurerm_virtual_network" "main" {
+  name                = var.vnet_name
+  location            = var.aks_location
+  resource_group_name = azurerm_resource_group.main.name
+  address_space       = var.vnet_address_space
+
+  tags = var.tags
+}
+
+resource "azurerm_subnet" "aks" {
+  name                 = var.aks_subnet_name
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = var.aks_subnet_address_prefixes
 }
